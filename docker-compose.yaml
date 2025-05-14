@@ -1,4 +1,18 @@
 services:
+  fe:
+    build: ./fe
+    container_name: frontend
+    volumes:
+      - ./fe:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0
+      - WEB_HOST=0.0.0.0
+      - WEB_PORT=3000
+    stdin_open: true
+    tty: true
   be:
     build: ./be
     container_name: backend
