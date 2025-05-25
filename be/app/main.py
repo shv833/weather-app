@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import router as weather_router
 from app.api.auth import router as auth_router
+from app.api.notifications import router as notification_router
 
 
 app = FastAPI(title="Weather Forecast API")
@@ -14,9 +15,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(weather_router, prefix="/api")
+app.include_router(weather_router, prefix="/api", tags=["weather"])
 app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
-
+app.include_router(notification_router, prefix="/api/notifications", tags=["notifications"])
 
 @app.get("/")
 async def root():
